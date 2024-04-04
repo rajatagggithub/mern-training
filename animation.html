@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+button{
+ scale: 3;
+top: 40px;
+position: absolute; 
+animation: button-animation-type-1;
+animation-direction: alternate;
+animation-duration: 4s;
+animation-timing-function: linear;
+animation-iteration-count: 3;
+
+}
+
+@keyframes button-animation-type-1{
+from{
+    top: 20px;
+    left: 40px;
+}
+to{
+    top: 200px;
+    left: 500px;
+}
+0%{
+    top: 20px;
+    left: 40px;
+}
+25%{
+    left: 40px;
+    top: 200px;
+}
+50%{
+    top: 200px;
+    left: 500px;
+    }
+    75%{
+        top: 20px;
+        left: 500px;
+    }
+    100%{
+        top: 20px;
+        left: 40px;
+    }
+}
+    </style>
+</head>
+<body>
+    <button>SUBMIT</button>
+</body>
+</html>
