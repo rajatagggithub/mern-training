@@ -1,14 +1,16 @@
 {
-  "name": "day-08",
+  "name": "testing",
   "version": "1.0.0",
-  "description": "",
-  "main": "day7.js",
+  "main": "script.js",
   "scripts": {
-    "dev":"nodemon day7.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon script.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.19.2",
     "nodemon": "^3.1.0"
-  }
+  },
+  "description": ""
 }

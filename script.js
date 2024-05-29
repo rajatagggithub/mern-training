@@ -1,103 +1,80 @@
-// let a = new string ("hello");
-// let b = "hello";
+const http = require('http');
 
-// const obj = {
-//     "name": "ajay",
-//     "last name": "aggarwal"
+const fs=require('fs');
+const data=fs.readFileSync('./data.json','utf8');
+// console.log(typeof(data));
 
-// }
-// obj.name = 20;
-// console.log(obj);
-
-// let arr = [];
-// console.log(arr);
-
-// const arr = [1,2,34];
-// arr[10] = 20;
-// console.log(arr);
-
-// const arr = [1,2,34];
-// arr.push(10) = 20;
-// console.log(arr);
-
-// const arr = [1,2,34];
-// console.log(typeof (arr));
-
-// const obj = {
-//       "name": "ajay",
-//         "last name": "aggarwal"}
-//         const arr = [1,2,34];
-//         arr[2] = 4;
-//         console.log(typeof (obj));
-//  console.log(typeof(arr));
-
-// const arr = [1,2,34];
-
-// console.log(array.isArray(obj))
-// onsole.log(array.isArray(arr))
-
-// checkIfObject([1,2,3,4])
-
-// checkIfObject({"name" :"ajay"})
-
-// function checkIfObject(x){
-//     if(Array.isArray(x)){
-//         console.log("Not object");
+const dataObj=JSON.parse(data);
+console.log("\n:dataObj:",dataObj);
+const products=dataObj.products;
+const htmlTemplate= fs.readFileSync('./templates/page.html',{encoding:'utf8'}); 
+// <!DOCTYPE HTML>
+// <html="en">
+//     <head>
+//     <style>
+//     .product-card{
+//         max-width:500px;
+//         margin:20px auto;
+//         border: 3px double brown;
+//         border-radius:8px;
+//         padding:16px;
+//         background-color: plum;
 //     }
-//     else if(typeof(x) =="object"){
-//         console.log('object');
-//     }
-//     else{
-//         console.log('not object')
-//     }
-// }
+//     </style>
+//     </head>
+//     <body>
+//         __Productscards___
+//         </body>
+//         </html>
+// `
 
-// const arr = ['name', 2]
-// const obj = {
-//     'name':"ajay", age:20, 1:"else"
-// };
-// for(let i of arr){
-//     console.log(i);
-// }
-// for(let i of obj){
-//     console.log(i);
-// }
+const cardTEMPLATE=
+fs.readFileSync('./templates/card.html','utf8');
+// `
+//  <div class='product-card'>
+//  <h4>_TITLE_</h4>
+//  <p>INFO</p>
+//  </div>`
 
-// for(let i in arr){
-//         console.log(i);
-//      }
-//      for(let i in obj){
-//         console.log(i);
-//      }
+// const card1=cardTEMPLATE.replace('_TITLE_',products[0].title)
+// .replace('INFO',products[0].description);
 
-// dom
+// const card2=cardTEMPLATE.replace('_TITLE_',products[1].title)
+// .replace('INFO',products[1].description);
 
-// console.log(window)
-// console.log(window.innerheight)
-// console.log(window.innerwidth)
+// const card3=cardTEMPLATE.replace('_TITLE_',products[2].title)
+// .replace('INFO',products[2].description);
 
+// // console.log("\n:card1:",typeof(card1));
+// // console.log("\n:card2:",typeof(card1));
 
-// console.log(window.document)
-
-// console.dir(window.document)
-
-// const res = document.getElementsByTagName('h3')
-
-// console.log(res)
-
-const res = document.getElementById('ht1')
-res[innerhtml] = "hello, world!";
-console.log(res)
-
-// const res = document.querySelectorAll('h3')
-// console.log(res);
-
-const ne =  document.createElement("h3")
-// console.log(ne)
-ne.innertext = "Dynamic text"
-// console.log(ne);
-firstDiv[0].appendChild(ne);
+// const allCards=card1+card2+card3;
 
 
 
+const allCards=products.map((elem)=>{
+    let newCard=cardTEMPLATE;
+    newCard=newCard.replace('_TITLE_',elem.title);
+    newCard=newCard.replace('INFO',elem.description);
+    newCard = newCard.replace('Img', elem.images[0] );
+    newCard = newCard.replace('Price', elem.price );
 
+    return newCard;
+});
+const allCardsString=allCards.join('   ');
+
+const page=htmlTemplate.replace('__Productscards___',allCardsString);
+
+const server = http.createServer((req,res)=>{
+console.log(req.url);
+res.writeHead(200,{
+    'content-type':'text/html'
+})
+res.end(page)
+});
+// app.listen(1400);
+server.listen(1400, ()=>{
+
+    console.log('---------------------server started-------------------------') 
+    
+});
